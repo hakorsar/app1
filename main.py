@@ -76,7 +76,7 @@ if len(content_input.split(" ")) > 700:
 
 def update_text_with_example():
     print ("in updated")
-    st.session_state.content_input = "breathable, windproof and water- resistant fabric with fleece on the inside, over-size, relaxed fit"
+    st.session_state.content_input = "The MILAN women’s parka from The Korsars AW 23/24 collection gets its energy from Karl Korsar’s lively LILLY statement print. This distinctive design is guaranteed to lift your spirits and turn heads, especially on those gloomy rainy days."
 
 st.button("*GENERATE TEXT*", type='secondary', help="Click to see an example of the content you will be converting.", on_click=update_text_with_example)
 
