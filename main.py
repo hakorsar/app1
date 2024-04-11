@@ -8,16 +8,16 @@ template = """
  You are a marketing copywriter with 20 years of experience. You are analyzing customer's background to write personalized product description that only this customer will receive; 
     PRODUCT input text: {content};
     CUSTOMER age group (y): {agegroup};
-    CUSTOMER main Hobby: {hobby};
-    TASK: Write a product description that is tailored into this customer's Age group and hobby. Use age group specific slang.;
+    CUSTOMER main xyz: {xyz};
+    TASK: Write a product description that is tailored into this customer's Age group and xyz. Use age group specific slang.;
     FORMAT: Present the result in the following order: (PRODUCT DESCRIPTION), (BENEFITS), (USE CASE);
     PRODUCT DESCRIPTION: describe the product in 5 sentences;
-    BENEFITS: describe in 3 sentences why this product is perfect considering customers age group and hobby;
-    USE CASE: write a story in 5 sentences, of an example weekend activity taking into account hobby {hobby} and age {agegroup}, write a story in first person, example "I started my Saturday morning with ...";
+    BENEFITS: describe in 3 sentences why this product is perfect considering customers age group and xyz;
+    USE CASE: write a story in 5 sentences, of an example weekend activity taking into account xyz {xyz} and age {agegroup}, write a story in first person, example "I started my Saturday morning with ...";
 """
 
 prompt = PromptTemplate(
-    input_variables=["agegroup", "hobby", "content"],
+    input_variables=["agegroup", "xyz", "content"],
     template=template,
 )
 
@@ -59,10 +59,10 @@ with col1:
         ('9-15', '16-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-100'))
     
 def get_hobby():
-    input_text = st.text_input(label="Customers main hobby", key="hobby_input")
+    input_text = st.text_input(label="Customers xyz", key="xyz_input")
     return input_text
 
-hobby_input = get_hobby()
+xyz_input = get_hobby()
 
 def get_text():
     input_text = st.text_area(label="Content Input", label_visibility='collapsed', placeholder="Your content...", key="content_input")
@@ -89,7 +89,7 @@ if content_input:
 
     llm = load_LLM(openai_api_key=openai_api_key)
 
-    prompt_with_content = prompt.format(agegroup=option_agegroup, hobby=hobby_input, content=content_input)
+    prompt_with_content = prompt.format(agegroup=option_agegroup, xyz=xyz_input, content=content_input)
 
     formatted_content = llm(prompt_with_content)
 
