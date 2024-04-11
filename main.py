@@ -5,15 +5,15 @@ from langchain_community.llms import OpenAI
 import os
 
 template = """
- You are a marketing copywriter with 20 years of experience. You are analyzing customer's background to write personalized product description that only this customer will receive; 
-    PRODUCT input text: {content};
-    CUSTOMER age group (y): {agegroup};
-    CUSTOMER main xyz: {xyz};
-    TASK: Write a product description that is tailored into this customer's Age group and xyz. Use age group specific slang.;
-    FORMAT: Present the result in the following order: (PRODUCT DESCRIPTION), (BENEFITS), (USE CASE);
-    PRODUCT DESCRIPTION: describe the product in 5 sentences;
-    BENEFITS: describe in 3 sentences why this product is perfect considering customers age group and xyz;
-    USE CASE: write a story in 5 sentences, of an example weekend activity taking into account xyz {xyz} and age {agegroup}, write a story in first person, example "I started my Saturday morning with ...";
+ Te olete turunduse kopeerikirjutaja, kellel on 20 aastat kogemust. Te analüüsite kliendi tausta, et kirjutada isikupärastatud toote kirjeldus, mida saab ainult see klient; 
+    TOOTE sisendtekst: {content};
+    KLIENDI vanuserühm (a): {agegroup};
+    KLIENDI põhiline xyz: {xyz};
+    ÜLESANNE: Kirjutage toote kirjeldus, mis on kohandatud sellele kliendile vanuserühma ja xyz järgi. Kasutage vanuserühma spetsiifilist slängi.;
+    FORMAAT: Esitage tulemus järgmises järjekorras: (TOOTE KIRJELDUS), (EELISED), (KASUTUSJUHT);
+    TOOTE KIRJELDUS: kirjeldage toodet 5 lauses;
+    EELISED: kirjeldage 3 lauses, miks see toode on täiuslik, arvestades kliendi vanuserühma ja xyz;
+    KASUTUSJUHT: kirjutage lugu 5 lauses, näites nädalavahetuse tegevusest, arvestades xyz {xyz} ja vanuse {agegroup}, kirjutage lugu esimeses isikus, näide "Alustasin laupäeva hommikut ...";
 """
 
 prompt = PromptTemplate(
@@ -22,32 +22,32 @@ prompt = PromptTemplate(
 )
 
 def load_LLM(openai_api_key):
-    """Logic for loading the chain you want to use should go here."""
-    # Make sure your openai_api_key is set as an environment variable
+    """Loogika selleks, et laadida soovitud ahel."""
+    # Veenduge, et teie openai_api_key oleks seadistatud keskkonnamuutujana
     llm = OpenAI(model_name='gpt-3.5-turbo-instruct', temperature=.7, openai_api_key=openai_api_key)
     return llm
 
-st.set_page_config(page_title="Customer tailored content", page_icon=":robot:")
-st.header("Personaliseeritud turundusteksti konverter")
+st.set_page_config(page_title="Isikupärastatud klienditeksti konverter", page_icon=":robot:")
+st.header("Isikupärastatud turundusteksti konverter")
 
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("Otstarve: tootetutvustustekstide personaliseerimine igale kliendile või kliendigruppidele; väljundtekst on kohandatud kliendi a) vanuserühmaga ja b) hobbitegevusega; sisendtekstiks on neutraalses vormis tootekirjeldus. \
-    \n\n Kasutusjuhend: 1) valmista ette tootekirjeldus (sisendtekst). 2) määra tarbijasegemendid lähtuvalt vanuserühma ja hobbide kombinatsioonidest. 3) sisesta ükshaaval tarbijasegmentide lõikes eeltoodud info äpi kasutajaliideses, saada ära. \
-    4) kopeeri ükshaaval tarbijasegmentide lõikes äpi väljundteksti kõnealuse toote tutvustuslehele.")
+    st.markdown("Otstarve: tootekirjelduste isikupärastamine iga kliendi või kliendigrupi jaoks; väljundtekst on kohandatud kliendi a) vanuserühma ja b) xyz-ga; sisendtekstiks on neutraalne tootekirjeldus. \
+    \n\n Kasutusjuhend: 1) valmistage ette tootekirjeldus (sisendtekst). 2) määrake kliendisegmendid vastavalt vanuserühmadele ja xyz kombinatsioonidele. 3) sisestage iga kliendisegmendi jaoks eeltoodud teave järjestikku rakenduse kasutajaliidesesse, saadke ära. \
+    4) kopeerige iga kliendisegmendi jaoks rakenduse väljundtekst vastava toote tutvustuslehele.")
 
 with col2:
-    st.image(image='companylogo.jpg', caption='Natural and healthy shirts for everybody')
+    st.image(image='companylogo.jpg', caption='Looduslikud ja tervislikud särgid kõigile')
 
-st.markdown("## Enter Your Content To Convert")
+st.markdown("## Sisestage oma sisu konverteerimiseks")
 
 def get_api_key():
     openai_api_key = os.getenv("OPENAI_API_KEY")
     if openai_api_key:
         return openai_api_key
-    # If OPENAI_API_KEY environment variable is not set, prompt user for input
-    input_text = st.text_input(label="OpenAI API Key", placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
+    # Kui OPENAI_API_KEY keskkonnamuutujat ei ole seadistatud, küsige kasutajalt sisendit
+    input_text = st.text_input(label="OpenAI API võti", placeholder="Näide: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
     return input_text
 
 openai_api_key = get_api_key()
@@ -55,32 +55,32 @@ openai_api_key = get_api_key()
 col1, col2 = st.columns(2)
 with col1:
     option_agegroup = st.selectbox(
-        'Which age group would you like your content to target?',
+        'Millist vanuserühma soovite oma sisu sihtida?',
         ('9-15', '16-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-100'))
     
 def get_hobby():
-    input_text = st.text_input(label="Customers xyz", key="xyz_input")
+    input_text = st.text_input(label="Kliendi xyz", key="xyz_input")
     return input_text
 
 xyz_input = get_hobby()
 
 def get_text():
-    input_text = st.text_area(label="Content Input", label_visibility='collapsed', placeholder="Your content...", key="content_input")
+    input_text = st.text_area(label="Sisu sisend", label_visibility='collapsed', placeholder="Teie sisu...", key="content_input")
     return input_text
 
 content_input = get_text()
 
 if len(content_input.split(" ")) > 700:
-    st.write("Please enter a shorter content. The maximum length is 700 words.")
+    st.write("Sisestage lühem sisu. Maksimaalne pikkus on 700 sõna.")
     st.stop()
 
 def update_text_with_example():
-    print ("in updated")
-    st.session_state.content_input = "Softshell is used in the production of outdoor, sports and leisure clothing. Softshell products ensure high comfort, good thermal insulation, breathability and wind resistance."
+    print ("uuendatud")
+    st.session_state.content_input = "Softshell kasutatakse välitehnika, spordi- ja vabaajarõivaste tootmises. Softshell tooted tagavad kõrge mugavuse, hea soojusisolatsiooni, hingavuse ja tuulekindluse."
 
-st.button("*GENERATE TEXT*", type='secondary', help="Click to see an example of the content you will be converting.", on_click=update_text_with_example)
+st.button("*TEKSTI GENEREERIMINE*", type='secondary', help="Klõpsake sisu konverteerimise näidise nägemiseks.", on_click=update_text_with_example)
 
-st.markdown("### Your customer tailored content:")
+st.markdown("### Teie isikupärastatud kliendisisu:")
 
 if content_input:
 #    if not openai_api_key:
