@@ -76,8 +76,8 @@ if len(content_input.split(" ")) > 700:
 
 def update_text_with_example():
     print ("uuendatud")
-    st.session_state.content_input = "Kollektsiooni The Korsars sügis-talv 23/24 kuuluv MILAN naisteparka saab energia Karl Korsari särtsakast LILLY kangatrükist. See omanäoline disain tõstab teie tuju ja pöörab pead, eriti nendel süngetel vihmastel päevadel."
-
+    st.session_state.content_input = "hingav, tuule- ja veekindel kangas, avaralõikeline, mugav  istuvus"
+ 
 st.button("*TEKSTI GENEREERIMINE*", type='secondary', help="Klõpsake sisu konverteerimise näidise nägemiseks.", on_click=update_text_with_example)
 
 st.markdown("### Teie isikupärastatud kliendisisu:")
