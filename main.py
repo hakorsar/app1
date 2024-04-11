@@ -76,7 +76,7 @@ if len(content_input.split(" ")) > 700:
 
 def update_text_with_example():
     print ("uuendatud")
-    st.session_state.content_input = "Softshell kasutatakse välitehnika, spordi- ja vabaajarõivaste tootmises. Softshell tooted tagavad kõrge mugavuse, hea soojusisolatsiooni, hingavuse ja tuulekindluse."
+    st.session_state.content_input = "Kollektsiooni The Korsars sügis-talv 23/24 kuuluv MILAN naisteparka saab energia Karl Korsari särtsakast LILLY kangatrükist. See omanäoline disain tõstab teie tuju ja pöörab pead, eriti nendel süngetel vihmastel päevadel."
 
 st.button("*TEKSTI GENEREERIMINE*", type='secondary', help="Klõpsake sisu konverteerimise näidise nägemiseks.", on_click=update_text_with_example)
 
