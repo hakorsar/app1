@@ -75,8 +75,8 @@ if len(content_input.split(" ")) > 700:
     st.stop()
 
 def update_text_with_example():
-    print ("in updated"Softshell is used in the production of outdoor, sports and leisure clothing. Softshell products ensure high comfort, good thermal insulation, breathability and wind resistance"
-    st.session_state.content_input = "The MILAN women’s parka from The Korsars AW 23/24 collection gets its energy from Karl Korsar’s lively LILLY statement print. This distinctive design is guaranteed to lift your spirits and turn heads, especially on those gloomy rainy days."
+    print ("in updated")
+    st.session_state.content_input = "Softshell is used in the production of outdoor, sports and leisure clothing. Softshell products ensure high comfort, good thermal insulation, breathability and wind resistance."
 
 st.button("*GENERATE TEXT*", type='secondary', help="Click to see an example of the content you will be converting.", on_click=update_text_with_example)
 
